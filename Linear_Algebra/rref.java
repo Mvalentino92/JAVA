@@ -1,6 +1,11 @@
 public class rref
 {
-	//Generating the matrix from the input entered from the command line. 
+	//Generating the matrix from the input entered from the command line.
+	//Enter the the dimensions of the matrix (rows then columns), followed by each row's elements.
+	/*EXAMPLE for the matrix 1 2 3
+	                         4 5 6
+	  You would enter: java rref 2 3 1 2 3 4 5 6
+	*/
 	public static void main(String[] args)
 	{
 		int rowN = Integer.parseInt(args[0]);
@@ -22,7 +27,6 @@ public class rref
 		matrix = gauss(matrix);
 		matprint(matrix);
 	}
-
 
 	//Prints the contents of a matrix
 	public static void matprint(double[][] matrix)
