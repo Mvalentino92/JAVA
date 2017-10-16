@@ -92,7 +92,7 @@ public class linsolve
 		int bottom = 0; //Represent the row index of the matrix during the ascent to reduced row echelon form
 		int pivot  = 0; //Represents the column index of the used by the pivot element
 		double kill = 0; //kill is the number to multiply the pivot element by so it can "zero out" the y elements
-		if(countZeroRows(matrix) == colNumber) return matrix;
+		if(countZeroRows(matrix) == rowNumber) return matrix;
 		for(int k = 0; k < colNumber; ++k)
 		{
 			for(int j = 1; j < (rowNumber - top); j++)
