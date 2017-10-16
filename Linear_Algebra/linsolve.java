@@ -1,6 +1,11 @@
 public class linsolve
 {
-	//Generating the matrix from the input entered from the command line. 
+	//Generating the matrix from the input entered from the command line.
+	//Enter the augmented matrix dimensions (rows then columns), followed by the elements of each row
+	/*EXAMPLE for the augmented matrix 1 3 4
+	                                   7 8 1
+	  You would enter: java linsolve 2 3 1 3 4 7 8 1
+	*/
 	public static void main(String[] args)
 	{
 		int rowN = Integer.parseInt(args[0]);
@@ -24,7 +29,6 @@ public class linsolve
 		matrix = linsolve(matrix,b);
 		matprint(matrix);
 	}
-
 
 	//Prints the contents of a matrix
 	public static void matprint(double[][] matrix)
@@ -214,6 +218,7 @@ public class linsolve
 		}
 		return matrix;
 	}
+	
 	//Returns the inverse of a matrix if possible
 	public static double[][] Inverse(double[][] matrix)
 	{
@@ -307,18 +312,7 @@ public class linsolve
 	public static double[][] linsolve(double[][] A, double[][] b)
 	{
 		A = Inverse(A);
-		//If either the inverse method or multiplication method arent successful, PI is returned as a tracker
-		/*if(A[0][0] == Math.PI) 
-		{
-			System.out.println("System is not unique");
-		       	System.exit(1); 
-		}*/
 		double solution[][] = matmult(A,b);
-		/*if(solution[0][0] == Math.PI)
-		{
-			System.out.println("System is not unique");
-			System.exit(1);
-		}*/
 		return solution;
 	}
 }
