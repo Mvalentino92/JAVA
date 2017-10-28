@@ -19,3 +19,5 @@ Linear Algebra functions, as well as scripts from my class.
 **Rocket_Valentino.java:** Simulates a rocket trying to escape the earths atmosphere. Updated values using Eulers Method.
 
 **Subtract_Quiz.java:** Runs a quiz that asks the user simple interger subtraction.
+
+**changeString.java:** Returns a new string, with the specified pattern replaced by the given new pattern. Recursively calls itself until all occurences of the pattern are replaced. 
