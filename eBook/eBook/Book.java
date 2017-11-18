@@ -2,27 +2,28 @@ package eBook;
 
 public class Book
 {
-	public Chapters[] bookChapters = new Chapters[15];
-	public int currentChapter = 0;
-	public int currentPage = 0;
-	public static int bookChapterCount = -1; //Im changing these all to 0
+	public Chapters[] bookChapters = new Chapters[15]; //Keeps a list of all the chapters in the book
+	public int currentChapter = 0; //Keeps track of the current chapter the book is reading from
+	public int currentPage = 0;    //Keeps track of the current page the book is reading.
+	public static int bookChapterCount = -1; //By design
 	public int chapterNumberStart;
 	public int chapterNumberEnd;
 	
-
+    //Basic constructor
 	public Book() {}
 	
+	//Constructor that adds a specified range of chapters
 	public Book(int chapterNumberStart, int chapterNumberEnd)
 	{
 		for(int i = chapterNumberStart; i <= chapterNumberEnd; i++)
 		{
 			bookChapters[++bookChapterCount] = Chapters.chapterList[i];
-			//chapterPageCount++;
 		}
 		this.chapterNumberStart = chapterNumberStart;
 		this.chapterNumberEnd = chapterNumberEnd;
 	}
 	
+	//adds a chapter, and updates everything accordingly
 	public void addChapter(Chapters newChapter, Pages newPage, String textOfPage)
 	{
 		newPage.addText(textOfPage);
@@ -36,8 +37,11 @@ public class Book
 		chapterNumberEnd++;
 	}
 	
+	//Opens the book and reads the first page
 	public void openBook() {this.bookChapters[currentChapter].chapterPages[currentPage].readPage();}
 	
+	//turns and read the next page. Reads from the CHAPTERS.
+	//if the max index of one chapter is reached, it updates the next chapter at index 0
 	public void turnPage()
 	{
 		try
@@ -46,14 +50,13 @@ public class Book
 		}
 		catch(Exception ex)
 		{
-			currentChapter++;
-			currentPage = 0;
-			this.bookChapters[currentChapter].chapterPages[currentPage].readPage();
+			if(currentChapter + 1 <= bookChapterCount)
+			{
+				currentChapter++;
+			    currentPage = 0;
+			    this.bookChapters[currentChapter].chapterPages[currentPage].readPage();
+			}
+			else System.out.println("End of book");
 		}
 	}
-	
-	
-	
-	
-	
 }

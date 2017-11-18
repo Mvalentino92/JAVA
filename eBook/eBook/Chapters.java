@@ -2,18 +2,19 @@ package eBook;
 
 public class Chapters
 {
-	public static Chapters[] chapterList = new Chapters[10];
-	public static int chapterCount = 0;
-	public Pages[] chapterPages = new Pages[10];
-	public int chapterPageCount = -1;
+	public static Chapters[] chapterList = new Chapters[15];  //Keeps a running list of the total chapters in the book
+	public static int chapterCount = 0;                       //Indexing for the chapterList
+	public Pages[] chapterPages = new Pages[25];              //The pages stored in each chapter
+	public int chapterPageCount = -1; //This is by design, to help me differentiate the variables bettter
 	
-	public int chapterNumber;
-	public int pageNumberStart;
-	public int pageNumberEnd;
+	public int chapterNumber;    //For display purposes in the GUI
+	public int pageNumberStart;  //Where the pages for the chapters start in reference to the pageList
+	public int pageNumberEnd;    //Where the pages for the chapters end in reference to the pageList
 	
-	//Two constructor methods, one for knowing what pages, the other for just adding one page.
-	public Chapters() {chapterNumber = chapterCount;} //Added this
+	//Constructor method for adding a chapter with a single page
+	public Chapters() {chapterNumber = chapterCount;}
 	
+	//Constructor method for adding a chapter with a specified page range (The pages already exist)
 	public Chapters(int pageNumberStart, int pageNumberEnd)
 	{
 		for(int i = pageNumberStart; i <= pageNumberEnd; i++)
@@ -27,23 +28,19 @@ public class Chapters
 		chapterList[chapterCount++] = this;
 	}
 	
-	//Getter method to get beginning and end
-	public void getFlanks() {System.out.println("The start is "+pageNumberStart+" and the end is "+pageNumberEnd);}
-	
+	//Method for adding a page. If you're adding a page to the last chapter, it simply adds it and updates everything accordingly
+	//If you're adding a page to chapter that is NOT the last chapter, it must go through and update everything that is affected.
 	public void addPage(Pages newPage, String nextPageText)
 	{
 		newPage.addText(nextPageText);
-		//Pages holdPage = new Pages(nextPageText);
-		if(Chapters.chapterList[chapterCount-1] == this) 
-		{
-			Pages.pageList[Pages.pageCount++] = newPage;     //changed this
-			//Pages.pageList[Pages.pageCount-1].pageNumber++;
-		}
+		if(Chapters.chapterList[chapterCount-1] == this) Pages.pageList[Pages.pageCount++] = newPage;
 		chapterPages[++chapterPageCount] = newPage;
 		pageNumberEnd++;
 		
+		//This executes if you're adding to a NON end chapter
 		if(Chapters.chapterList[chapterCount-1] != this)
 		{
+			//This is shifting down all the pages affected by one index, and inserting the new page
 			Pages.pageCount++;
 			Pages[] temp = new Pages[50];
 			temp[0] = Pages.pageList[pageNumberEnd];
@@ -55,6 +52,7 @@ public class Chapters
 		
 			Pages.pageList[pageNumberEnd] = newPage;
 			 
+			//This is updating where the page numbers start and end for each chapter.
 		    int indexOfChapter = 0;
 		    for(int i = 0; i < chapterCount; i++)
 		    {
@@ -66,12 +64,15 @@ public class Chapters
 		    	chapterList[i].pageNumberStart++;
 		    	chapterList[i].pageNumberEnd++;
 		    }
+		    
+		    //This is updating the pageNumbers associated with each page in pageList
 		    for(int i = pageNumberEnd; i < Pages.pageCount; i++)
 		    {
 		    	Pages.pageList[i].pageNumber++;
 		    }
-		    Pages.pageList[pageNumberEnd].pageNumber = Pages.pageList[pageNumberEnd-1].pageNumber + 1; 
+		    //Original location of line below
 		}
+		Pages.pageList[pageNumberEnd].pageNumber = Pages.pageList[pageNumberEnd-1].pageNumber + 1;
 			
 	}
 	

@@ -19,8 +19,9 @@ public class Pages
 	}
 	
 	//getter methods
-	public void readPage() {System.out.println(text);}
+	public void readPage() {System.out.println(text+"\n");}
 	public int getPageNumber() {return pageNumber;}
+	//setter methods
 	public void addText(String text) {this.text = text;}
 
 	

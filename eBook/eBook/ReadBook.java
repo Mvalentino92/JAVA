@@ -4,13 +4,12 @@ public class ReadBook
 {
 	public static void main(String[] args)
 	{
-		Pages p1 = new Pages(textOfPages.pt1);
+	    Pages p1 = new Pages(textOfPages.pt1);
 		Pages p2 = new Pages(textOfPages.pt2);
 		Pages p3 = new Pages(textOfPages.pt3);
 		Pages p4 = new Pages(textOfPages.pt4);
 		Pages p5 = new Pages(textOfPages.pt5);
 		Pages p6 = new Pages(textOfPages.pt6);
-      
 		
 		Chapters chapterOne = new Chapters(0,2);
 		Chapters chapterTwo = new Chapters(3,5);
