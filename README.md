@@ -21,3 +21,5 @@ Linear Algebra functions, as well as scripts from my class.
 **Subtract_Quiz.java:** Runs a quiz that asks the user simple interger subtraction.
 
 **changeString.java:** Returns a new string, with the specified pattern replaced by the given new pattern. Recursively calls itself until all occurences of the pattern are replaced. 
+
+**interview.java:** Conducts an interview with the user. Creates a file containing the questions and their responses, and then reads the file back if the file creation was successful. Does not let an interview be conducted with the same person twice, and will throw an exception during attempted readback if the file was created succuessfully. 
