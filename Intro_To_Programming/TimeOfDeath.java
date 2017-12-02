@@ -48,7 +48,7 @@ public class TimeOfDeath
 			mat[i][0] = 1;
 		}
 
-		//Iterating through and calculating the other values with Crammers Rule
+		//Iterating through and calculating the other values
 		for(int i = 0; i < xVals.length; i++)
 		{
 			for(int j = 1; j < xVals.length; j++)
