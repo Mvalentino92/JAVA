@@ -24,6 +24,8 @@ Linear Algebra functions, as well as scripts from my class.
 
 **TimeOfDeath.java:** Classical Newtons Law of Cooling problem. You need to find what time someone died. All you have is the temperature of the environment, and some times with corresponding body temperatures. It is an automated script, and prompts you to enter values. It can handle environmental temperatures that are not constant, by solving a systems of equations to generete the coefficients of the polynomial of best fit. Will output the time of death.
 
+**Valentino_SIR_MODEL.java:** Prompts the user for information about a population to simulate an infectious epidemic. Opts to implement a quarantine option, and utilizes a Plotting Tool (Credited to my professor) in order to plot the results.
+
 **changeString.java:** Returns a new string, with the specified pattern replaced by the given new pattern. Recursively calls itself until all occurences of the pattern are replaced. 
 
 **interview.java:** Conducts an interview with the user. Creates a file containing the questions and their responses, and then reads the file back if the file creation was successful. Does not let an interview be conducted with the same person twice, and will throw an exception during attempted readback if the file was created succuessfully. 
