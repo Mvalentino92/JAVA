@@ -30,4 +30,6 @@ Linear Algebra functions, as well as scripts from my class.
 
 **interview.java:** Conducts an interview with the user. Creates a file containing the questions and their responses, and then reads the file back if the file creation was successful. Does not let an interview be conducted with the same person twice, and will throw an exception during attempted readback if the file was created succuessfully. 
 
+**randomCards.java:** Simulates flashcards by randomizing a txt file that contains questions and answers. Asks the user for the name of the txt file with the questions and answers, then prompts the user to press enter in order see the answer and the next question. Not intended to be functional for general public, but as I tool for myself to use if I wish. 
+
 **timeOfDeathDiffApproach.java:** Much like the TimeOfDeath file, but done in a bit of a different way. Just exploring the possibilities for solving the same problem.
