@@ -37,8 +37,23 @@ public class FlashCards
 		Scanner input = new Scanner(System.in);
 		System.out.print("What is the name of the file that contains the questions?: ");
 		String rawFileName = input.nextLine();
-		File file = new File(rawFileName);
-		Scanner fileInput = new Scanner(file);
+		File file = new File("null");
+		Scanner fileInput = new Scanner(System.in);
+
+		//Checking to see if the file exists. If it doesn't, notify the user possible reasons why.
+		try
+		{
+			file = new File(rawFileName);
+			fileInput = new Scanner(file);
+		}
+		catch(Exception e)
+		{
+			System.out.println("ERROR: File does not exist. Please ensure the following"+
+					"\n1) You have spelled the file name correctly."
+					+"\n2) The file is in the same directory/folder as this script."
+					+"\n3) You are including an file type extensions, like .txt.");
+			System.exit(1);
+		}
 		
 		//Creating PrintWriter for wrong answers file 
 		File wrongAnswers = new File("WrongAnswers"+wrongCount+".txt");
@@ -54,7 +69,10 @@ public class FlashCards
 		String[] shuffled = new String[myCards.size()];
 		shuffled = generateCards(myCards,shuffled,count);
 
-
+		/*Printing out the questions and answers, while asking the user if they got the current question correct or not.
+		 * If they got the question incorrect, I'm writing that question and answer to a new document
+		 * This document containing all the incorrectly answered questions, will be read again after this round finishes. 
+		 */
 		System.out.println();
 		for(int i = 0, j = 1; i < shuffled.length; i += 2, j++)
 		{
@@ -91,8 +109,6 @@ public class FlashCards
 			myCards = new ArrayList<>();
 			count = 0;
 
-			//Getting the name of the file from the user
-			
 			//Creating PrintWriter for wrong answers file 
 			wrongAnswers.delete();
 			wrongAnswers = new File("WrongAnswers"+wrongCount+".txt");
