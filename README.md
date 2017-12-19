@@ -16,6 +16,8 @@ Linear Algebra functions, as well as scripts from my class.
 
 **FinalTax.java:** Calculates how much of a clients income will be taxed, based on their filing status. Returns their tax bracket, ID, and tax.
 
+**FlashCards.java:** Reads a file provided by the user with questions and answers. Randomly shuffles the questions, and displays the text to the user. After the answer is shown, the user specifies if they answered the question correctly. All incorrectly answered questions will be asked again next round (shuffled as well). Will keep repeating this process until all questions are answered correctly.
+
 **LastChance.java:** Let the fun begin! This is a game involving rolling the given number of dice combinations on a card, in a certain amount of allotted turns. The catch it, you can either bet for yourself, or against yourself! Read the instructions at the top of the file for the full set of rules!
 
 **Rocket_Valentino.java:** Simulates a rocket trying to escape the earths atmosphere. Updated values using Eulers Method.
@@ -29,7 +31,5 @@ Linear Algebra functions, as well as scripts from my class.
 **changeString.java:** Returns a new string, with the specified pattern replaced by the given new pattern. Recursively calls itself until all occurences of the pattern are replaced. 
 
 **interview.java:** Conducts an interview with the user. Creates a file containing the questions and their responses, and then reads the file back if the file creation was successful. Does not let an interview be conducted with the same person twice, and will throw an exception during attempted readback if the file was created succuessfully. 
-
-**randomCards.java:** Simulates flashcards by randomizing a txt file that contains questions and answers. Asks the user for the name of the txt file with the questions and answers, then prompts the user to press enter in order see the answer and the next question. Not intended to be functional for general public, but as I tool for myself to use if I wish. 
 
 **timeOfDeathDiffApproach.java:** Much like the TimeOfDeath file, but done in a bit of a different way. Just exploring the possibilities for solving the same problem.
