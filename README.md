@@ -37,3 +37,9 @@ Linear Algebra functions, as well as scripts from my class or personal files.
 **interview.java:** Conducts an interview with the user. Creates a file containing the questions and their responses, and then reads the file back if the file creation was successful. Does not let an interview be conducted with the same person twice, and will throw an exception during attempted readback if the file was created succuessfully. 
 
 **timeOfDeathDiffApproach.java:** Much like the TimeOfDeath file, but done in a bit of a different way. Just exploring the possibilities for solving the same problem.
+
+## MyGame
+
+**STEMSurvivalRules.pdf:** Contains information on how to play the game, as well as rules for within the game. 
+
+**StemSurvival.zip:** Contains all the .java files necessary for playing the game.
