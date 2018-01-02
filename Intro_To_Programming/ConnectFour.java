@@ -161,7 +161,7 @@ public class ConnectFour
 								if(board[iCount][jCount] == 'O') oCount++;
 							}
 							else break;
-							if((tracker == 4 && sameSpot)&&(oCount == oMax)) return true;
+							if((tracker == 4 && sameSpot)&&(oCount <= oMax)) return true;
 						}
 					}
 				}
@@ -269,7 +269,11 @@ public class ConnectFour
 							board[row][i] = 'O';
 							board[row-1][i] = 'O';
 							if(targetMatches - 1 < 2) continue; //Changed from break
-							else return smartMove(board,!victory,targetMatches - 1);
+							else 
+							{
+								if(w == board[0].length - 1) return smartMove(board,!victory,targetMatches - 1);
+								else continue;
+							}
 						}
 						else
 						{
@@ -289,7 +293,11 @@ public class ConnectFour
 							board[row][i] = 'O';
 							board[row-1][i] = 'O';
 							if(targetMatches - 1 < 2) continue; //Changed from break
-							else return smartMove(board,victory,targetMatches - 1);
+							else 
+							{
+								if(w == board[0].length) return smartMove(board,victory,targetMatches - 1);
+								else continue;
+							}
 						}
 						else
 						{
@@ -367,8 +375,8 @@ public class ConnectFour
 			boolean changed = false;
 			if(!changed) changed = smartMove(board,true,4); //If you can win, do it.
 			if(!changed) changed = smartMove(board,false,4); //If player can win, block
-			if(!changed) changed = smartMove(board,true,3); //If you can get 3 in a row, do it.
-			if(!changed) changed = smartMove(board,false,3); //If player can get 3 in a row, block.
+			if(!changed) changed = smartMove(board,false,3); //If you can get 3 in a row, do it.
+			if(!changed) changed = smartMove(board,true,3); //If player can get 3 in a row, block.
 			if(!changed) changed = smartMove(board,true,2); //If you can get 2 in a row, do it.
 			if(!changed) dummyMove(board); //No moves smart moves avaiable? Randomly place one.
 
