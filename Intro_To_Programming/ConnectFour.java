@@ -69,7 +69,7 @@ public class ConnectFour
 		if(!generate)
 		{
 			System.out.println("-------------");
-			System.out.println("0 1 2 3 4 5 6");
+			System.out.println("1 2 3 4 5 6 7");
 		}
 	}
 
@@ -193,7 +193,7 @@ public class ConnectFour
 			while(input.hasNextInt())
 			{
 				columnChoice = input.nextInt();
-				if(columnChoice >= 0 && columnChoice < board[0].length)
+				if(columnChoice >= 1 && columnChoice <= board[0].length)
 				{
 					choseCorrectly = true;
 					break;
@@ -214,9 +214,9 @@ public class ConnectFour
 
 		while(row >= 0)
 		{
-			if(board[row][columnChoice] == 'O')
+			if(board[row][columnChoice-1] == 'O')
 			{
-				board[row][columnChoice] = chip;
+				board[row][columnChoice-1] = chip;
 				return true;
 			}
 			row--;
@@ -256,7 +256,14 @@ public class ConnectFour
 				}
 				row--;
 			}
-			if((checkWinner(board,!victory,targetMatches,row,i) && check)&&(possible(board,!victory,targetMatches,row,i)))
+			boolean setUp = false;
+			if(row - 1 >= 0)
+			{
+				board[row-1][i] = 'X';
+				if(checkWinner(board,false,4,row-1,i)) setUp = true;
+				board[row-1][i] = 'O';
+			}
+			if((checkWinner(board,!victory,targetMatches,row,i) && check)&&(possible(board,!victory,targetMatches,row,i) || setUp))
 			{
 				if(chip == 'P' && row >= 0)
 				{
@@ -317,20 +324,92 @@ public class ConnectFour
 	}
 
 	//If no conditions for smartMove to called are met, then this method will pick a spot at random.
-	public static boolean dummyMove(char[][] board)
+	public static boolean dummyMove(char[][] board,boolean firstAttempt)
 	{
-		int column = (int)(Math.random()*board[0].length);
-		int row = board.length - 1;
-		while(row >= 0)
+		if(firstAttempt)
 		{
-			if(board[row][column] == 'O')
+			ArrayList<Integer> acceptableSpots = dummyCheck(board);
+			if(acceptableSpots.isEmpty()) return dummyMove(board,false);
+			else
 			{
-				board[row][column] = 'X';
+
+				int getGoodColumn = (int)(Math.random()*acceptableSpots.size());
+				int column = acceptableSpots.get(getGoodColumn);
+				int row = board.length - 1;
+				while(row >= 0)
+				{
+					if(board[row][column] == 'O')
+					{
+						board[row][column] = 'X';
+						break;
+					}
+					row--;
+				}
 				return true;
+
 			}
-			row--;
 		}
-		return dummyMove(board);
+		else
+		{
+			int column = (int)(Math.random()*board[0].length);
+			int row = board.length - 1;
+			while(row >= 0)
+			{
+				if(board[row][column] == 'O')
+				{
+					board[row][column] = 'X';
+					return true;
+				}
+				row--;
+			}
+			return dummyMove(board,false);
+		}
+	}
+
+	public static ArrayList<Integer> dummyCheck(char[][] board)
+	{
+		ArrayList<Integer> acceptableColumns = new ArrayList<>();
+		for(int i = 0; i < board[0].length; i++)
+		{
+			if(board[1][i] != 'O') continue;
+			else
+			{
+				int row = board.length - 1;
+				while(row >= 0)
+				{
+					if(board[row][i] == 'O') break;
+					row--;
+				}
+				board[row-1][i] = 'P';
+				if(checkWinner(board,true,4,row-1,i))
+				{
+					board[row-1][i] = 'O';
+					continue;
+				}
+				else
+				{
+					board[row-1][i] = 'O';
+					acceptableColumns.add(i);
+				}
+			}
+		}
+		return acceptableColumns;
+	}
+
+
+
+	//Copies the board for the dummy method just to be safe. May or may not use
+	public static char[][] copyBoard(char[][] board)
+	{
+		char[][] boardCopy = new char[6][7];
+		for(int i = 0; i < board.length; i++)
+		{
+			for(int j = 0; j < board[0].length; j++)
+			{
+				boardCopy[i][j] = board[i][j];
+			}
+		}
+		return boardCopy;
 	}
 
 	//Calls checkWinner a bunch of times to check the entire board to see if anyone won
@@ -375,10 +454,18 @@ public class ConnectFour
 			boolean changed = false;
 			if(!changed) changed = smartMove(board,true,4); //If you can win, do it.
 			if(!changed) changed = smartMove(board,false,4); //If player can win, block
-			if(!changed) changed = smartMove(board,false,3); //If you can get 3 in a row, do it.
-			if(!changed) changed = smartMove(board,true,3); //If player can get 3 in a row, block.
+			if(Math.random() < 0.55)
+			{
+				if(!changed) changed = smartMove(board,false,3); //If you can get 3 in a row,doit
+				if(!changed) changed = smartMove(board,true,3); //If player can get 3 in row blok
+			}
+			else
+			{
+				if(!changed) changed = smartMove(board,true,3); //If you can get 3 in a row,doit
+				if(!changed) changed = smartMove(board,false,3); //If player can get 3 in row blok
+			}
 			if(!changed) changed = smartMove(board,true,2); //If you can get 2 in a row, do it.
-			if(!changed) dummyMove(board); //No moves smart moves avaiable? Randomly place one.
+			if(!changed) dummyMove(board,true); //No moves smart moves avaiable? Randomly place one.
 
 			if(winner(board,false,4)) computerWon = true;
 		}
