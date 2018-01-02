@@ -161,7 +161,7 @@ public class ConnectFour
 								if(board[iCount][jCount] == 'O') oCount++;
 							}
 							else break;
-							if((tracker == 4 && sameSpot)&&(oCount <= oMax)) return true;
+							if((tracker == 4 && sameSpot)&&(oCount == oMax)) return true;
 						}
 					}
 				}
@@ -268,7 +268,7 @@ public class ConnectFour
 						{
 							board[row][i] = 'O';
 							board[row-1][i] = 'O';
-							if(targetMatches - 1 < 2) break;
+							if(targetMatches - 1 < 2) continue; //Changed from break
 							else return smartMove(board,!victory,targetMatches - 1);
 						}
 						else
@@ -288,7 +288,7 @@ public class ConnectFour
 						{
 							board[row][i] = 'O';
 							board[row-1][i] = 'O';
-							if(targetMatches - 1 < 2) break;
+							if(targetMatches - 1 < 2) continue; //Changed from break
 							else return smartMove(board,victory,targetMatches - 1);
 						}
 						else
