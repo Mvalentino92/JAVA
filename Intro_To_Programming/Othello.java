@@ -91,6 +91,7 @@ public class Othello
 	//Method to get the maximum value from the ArrayLists int[]'s
 	public static int getMax(ArrayList<int[]> list, int indexToUse)
 	{
+		if(list.isEmpty()) return 0;
 		int max = list.get(0)[indexToUse];
 		for(int i = 0; i < list.size(); i++)
 		{
@@ -167,12 +168,164 @@ public class Othello
 		return choice;
 	}
 
+	//Method that picks the computers move, and returns the coordinates of that move
+	public static int[] smartMove(char[][] board)
+	{
+		char yourChip = 'W';
+		char opponentChip = 'B';
+		ArrayList<int[]> originalList = new ArrayList<>();
+		for(int i = 0; i < board.length; i++)
+		{
+			for(int j = 0; j < board[0].length; j++)
+			{
+				if(board[i][j] != 'O') continue;
+				else
+				{
+					int directionCount = 0;
+					int flipped = 0;
+					boolean hadMove = false;
+					for(int k = 0; k < directions.length; k++)
+					{
+						int row = i + directions[k][0];
+						int col = j + directions[k][1];
+						if((row < 0 || row >= board.length)||(col < 0 || col >= board[0].length)) continue;
+						else
+						{
+							if(board[row][col] != opponentChip) continue;
+							else
+							{
+								int flippedTracker = 0;
+								boolean wasFlipped = false;
+								while((row >= 0 && row < board.length)&&(col >= 0 && col < board[0].length))
+								{
+									if(board[row][col] == yourChip) 
+									{
+										directionCount++;
+										wasFlipped = true;
+										break;
+									}
+									else if(board[row][col] == opponentChip)
+									{
+										flipped++;
+										flippedTracker++;
+										row += directions[k][0];
+										col += directions[k][1];
+
+									}
+									else break;
+								}
+								if(wasFlipped) hadMove = true;
+								else flipped -= flippedTracker;
+							}
+						}
+					}
+					if(hadMove)
+					{
+						int border = 0;
+						if((i == 0 || i == board.length - 1)||(j == 0 || j == board[0].length - 1)) border = 1;
+						int[] goodMove = {flipped,directionCount,border,i,j};
+						originalList.add(goodMove);
+					}
+				}
+			}
+		}
+		double averageOfOriginal = getAverage(originalList,0);
+		int minimumDirection = getMin(originalList,1);
+
+		ArrayList<int[]> borderList = borderMoves(originalList,2);
+		ArrayList<int[]> directionList = directionMoves(originalList,1,minimumDirection);
+		ArrayList<int[]> combinedList = combinedMoves(borderList,directionList);
+	
+		if(!combinedList.isEmpty())
+		{
+			int maxCombined = getMax(combinedList,0);
+			if(maxCombined >= averageOfOriginal)
+			{
+				maxFlipped(combinedList);
+				return randomChoice(combinedList);
+			}
+			else
+			{
+				int borderMax = getMax(borderList,0);
+				int directionMax = getMax(directionList,0);
+				if(borderMax > directionMax)
+				{
+					if(borderMax >= averageOfOriginal)
+					{
+						maxFlipped(borderList);
+						return randomChoice(borderList);
+					}
+					else
+					{
+						maxFlipped(originalList);
+						return randomChoice(originalList);
+					}
+				}
+				else if(directionMax > borderMax)
+				{
+					if(directionMax >= averageOfOriginal)
+					{
+						maxFlipped(directionList);
+						return randomChoice(directionList);
+					}
+					else
+					{
+						maxFlipped(originalList);
+						return randomChoice(originalList);
+					}
+				}
+				else
+				{
+					maxFlipped(originalList);
+					return randomChoice(originalList);
+				}
+			}
+		}
+		else
+		{
+			int borderMax = getMax(borderList,0);
+			int directionMax = getMax(directionList,0);
+			if(borderMax > directionMax)
+			{
+				if(borderMax >= averageOfOriginal)
+				{
+					maxFlipped(borderList);
+					return randomChoice(borderList);
+				}
+				else
+				{
+					maxFlipped(originalList);
+					return randomChoice(originalList);
+				}
+			}
+			else if(directionMax > borderMax)
+			{
+				if(directionMax >= averageOfOriginal)
+				{
+					maxFlipped(directionList);
+					return randomChoice(directionList);
+				}
+				else
+				{
+					maxFlipped(originalList);
+					return randomChoice(originalList);
+				}
+			}
+			else
+			{
+				maxFlipped(originalList);
+				return randomChoice(originalList);
+			}
+		}
+
+
+	}
+	
 	//**********************Methods for checking for interacting with the board*************************************//
 	
 	//Method that checks the board for the specified player, and returns true or false if it's possible to make a valid move.
 	public static boolean hasValidMove(char[][] board, boolean isPlayer)
 	{
-		//Who are we checking for?
 		char yourChip;
 		char opponentChip;
 		if(isPlayer)
@@ -346,31 +499,77 @@ public class Othello
 		return flipped;
 	}
 
-
-										
-
-
-
-
+	//Runs the game. Prompts the user if they would like to play against a person or a computer.
 	public static void main(String[] args)
 	{
-		char[][] board = createBoard(8,8);
-		while(true)
+		System.out.println("Welcome to Othello.");
+		int opponentChoice = 0;
+		System.out.println("[1]: Play another player.");
+		System.out.println("[2]: Play against the computer.");
+		System.out.print("Choose your opponent: ");
+		boolean choseCorrectly = false;
+		while(!choseCorrectly)
 		{
-			if(hasValidMove(board,true)) 
+			while(input.hasNextInt())
 			{
-				printBoard(board);
-				while(!(playMove(board,true,playerMove(board,true))));
+				opponentChoice = input.nextInt();
+				if(opponentChoice > 0 && opponentChoice < 3)
+				{
+					choseCorrectly = true;
+					break;
+				}
+				else System.out.print("Please enter an integer within the bounds of your commands!: ");
 			}
-			else break;
-			if(hasValidMove(board,false)) 
+			if(choseCorrectly) continue;
+			else
 			{
-				printBoard(board);
-				while(!(playMove(board,false,playerMove(board,false))));
+				System.out.print("Please enter an integer: ");
+				input.next();
 			}
-			else break;
 		}
-		printBoard(board);
-		getWinner(board);
+		char[][] board = createBoard(8,8);
+		String skip = input.nextLine();
+		if(opponentChoice == 1)
+		{
+			while(true)
+			{
+				if(hasValidMove(board,true)) 
+				{
+					printBoard(board);
+					while(!(playMove(board,true,playerMove(board,true))));
+				}
+				else break;
+				if(hasValidMove(board,false)) 
+				{
+					printBoard(board);
+					while(!(playMove(board,false,playerMove(board,false))));
+				}
+				else break;
+			}
+			printBoard(board);
+			getWinner(board);
+		}
+		else 
+		{
+			while(true)
+			{
+				if(hasValidMove(board,true))
+				{
+					printBoard(board);
+					while(!(playMove(board,true,playerMove(board,true))));
+					printBoard(board);
+				}
+				else break;
+				if(hasValidMove(board,false))
+				{
+					playMove(board,false,smartMove(board));
+					System.out.print("Press ENTER to view computers move.");
+					input.nextLine();
+				}
+				else break;
+			}
+			printBoard(board);
+			getWinner(board);
+		}
 	}
 }
