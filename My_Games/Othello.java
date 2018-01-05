@@ -71,7 +71,7 @@ public class Othello
 	public static double getAverage(ArrayList<int[]> list, int indexToUse)
 	{
 		double average = 0;
-		for(int i = 0; i < list.size(); i++) average += list.get(0)[indexToUse];
+		for(int i = 0; i < list.size(); i++) average += list.get(i)[indexToUse];
 
 		return average/list.size();
 	}
@@ -276,8 +276,16 @@ public class Othello
 				}
 				else
 				{
+					if(borderMax != 0 && directionMax != 0)
+					{
+						maxFlipped(borderList);
+						return randomChoice(borderList);
+					}
+					else
+					{
 					maxFlipped(originalList);
 					return randomChoice(originalList);
+					}
 				}
 			}
 		}
@@ -313,8 +321,16 @@ public class Othello
 			}
 			else
 			{
+				if(borderMax != 0 && directionMax != 0)
+				{
+					maxFlipped(borderList);
+					return randomChoice(borderList);
+				}
+				else
+				{
 				maxFlipped(originalList);
 				return randomChoice(originalList);
+				}
 			}
 		}
 
@@ -538,13 +554,19 @@ public class Othello
 					printBoard(board);
 					while(!(playMove(board,true,playerMove(board,true))));
 				}
-				else break;
+				else
+				{
+					if(!hasValidMove(board,false)) break;
+				}
 				if(hasValidMove(board,false)) 
 				{
 					printBoard(board);
 					while(!(playMove(board,false,playerMove(board,false))));
 				}
-				else break;
+				else
+				{
+					if(!hasValidMove(board,true)) break;
+				}
 			}
 			printBoard(board);
 			getWinner(board);
@@ -559,14 +581,20 @@ public class Othello
 					while(!(playMove(board,true,playerMove(board,true))));
 					printBoard(board);
 				}
-				else break;
+				else
+				{
+					if(!hasValidMove(board,false)) break;
+				}
 				if(hasValidMove(board,false))
 				{
 					playMove(board,false,smartMove(board));
 					System.out.print("Press ENTER to view computers move.");
 					input.nextLine();
 				}
-				else break;
+				else
+				{
+					if(!hasValidMove(board,true)) break;
+				}
 			}
 			printBoard(board);
 			getWinner(board);
