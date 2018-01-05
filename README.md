@@ -22,6 +22,8 @@ Linear Algebra functions, scripts from my class, personal files, and a game!!
 
 **LastChance.java:** Let the fun begin! This is a game involving rolling the given number of dice combinations on a card, in a certain amount of allotted turns. The catch it, you can either bet for yourself, or against yourself! Read the instructions at the top of the file for the full set of rules!
 
+**Othello.java:** This is a text based version of the game Othello, (or you may know it as Reversi). Same sort of set up as the ConnectFour.java game above. You have the option to either to play against another player, or the computer. The computer tries to access which move is the best course of action every turn using an algorithm I wrote. Have fun.
+
 **RecursiveInterpolation.java:** Uses recursion to linearly interpolate halfway between all the supplied data points. Continues to do so until the new array length reaches the size specified by the user. The larger the desired array compared to the original, the less accurate the final returned array will be, as each subsequent method call is interpolating previously interpolated points.
 
 **Rocket_Valentino.java:** Simulates a rocket trying to escape the earths atmosphere. Updated values using Eulers Method.
