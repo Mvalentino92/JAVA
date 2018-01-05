@@ -12,17 +12,11 @@ Linear Algebra functions, scripts from my class, personal files, and a game!!
 **linsolve.java:** Utilizes Gaussian Elimination, the inverse, and matrix multiplication to return the coefficients for a systems of a equations.
 
 ## Intro_To_Programming
-**ConnectFour.java:** A text-based Connect Four game to be enjoyed at the terminal. You as the player, face off against the computer. The computer uses a series of algorithms to determine its best course of action. 
-
 **EncodeAndDecodeJavaFiles.java && EncryptAndDecrypt.java:** Encodes and decodes .java files using the following algorithm. Counts the number of letters in each word and shifts each of the letters in that word by that number. Only letters of the alphabet (both upper and lowercase) count as letters, and words are any characters seperated by either spaces, periods, brackets, or parenthesis. Returns a new file which represents either the encoded and decoded .java file.
 
 **FinalTax.java:** Calculates how much of a clients income will be taxed, based on their filing status. Returns their tax bracket, ID, and tax.
 
 **FlashCards.java:** Reads a file provided by the user with questions and answers. Randomly shuffles the questions, and displays the text to the user. After the answer is shown, the user specifies if they answered the question correctly. All incorrectly answered questions will be asked again next round (shuffled as well). Will keep repeating this process until all questions are answered correctly.
-
-**LastChance.java:** Let the fun begin! This is a game involving rolling the given number of dice combinations on a card, in a certain amount of allotted turns. The catch it, you can either bet for yourself, or against yourself! Read the instructions at the top of the file for the full set of rules!
-
-**Othello.java:** This is a text based version of the game Othello, (or you may know it as Reversi). Same sort of set up as the ConnectFour.java game above. You have the option to either to play against another player, or the computer. The computer tries to access which move is the best course of action every turn using an algorithm I wrote. Have fun.
 
 **RecursiveInterpolation.java:** Uses recursion to linearly interpolate halfway between all the supplied data points. Continues to do so until the new array length reaches the size specified by the user. The larger the desired array compared to the original, the less accurate the final returned array will be, as each subsequent method call is interpolating previously interpolated points.
 
@@ -43,6 +37,11 @@ Linear Algebra functions, scripts from my class, personal files, and a game!!
 **timeOfDeathDiffApproach.java:** Much like the TimeOfDeath file, but done in a bit of a different way. Just exploring the possibilities for solving the same problem.
 
 ## My_Games
+**ConnectFour.java:** A text-based Connect Four game to be enjoyed at the terminal. You as the player, face off against the computer. The computer uses a series of algorithms to determine its best course of action. 
+
+**LastChance.java:** Let the fun begin! This is a game involving rolling the given number of dice combinations on a card, in a certain amount of allotted turns. The catch it, you can either bet for yourself, or against yourself! Read the instructions at the top of the file for the full set of rules!
+
+**Othello.java:** This is a text based version of the game Othello, (or you may know it as Reversi). Same sort of set up as the ConnectFour.java game above. You have the option to either to play against another player, or the computer. The computer tries to access which move is the best course of action every turn using an algorithm I wrote. Have fun.
 
 **STEMSurvivalRules.pdf:** Contains information on how to play the game, as well as rules for within the game. 
 
