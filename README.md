@@ -42,7 +42,7 @@ Linear Algebra functions, scripts from my class, personal files, and a game!!
 
 **timeOfDeathDiffApproach.java:** Much like the TimeOfDeath file, but done in a bit of a different way. Just exploring the possibilities for solving the same problem.
 
-## MyGame
+## My_Games
 
 **STEMSurvivalRules.pdf:** Contains information on how to play the game, as well as rules for within the game. 
 
