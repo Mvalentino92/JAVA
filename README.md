@@ -46,3 +46,5 @@ Linear Algebra functions, scripts from my class, personal files, and a game!!
 **STEMSurvivalRules.pdf:** Contains information on how to play the game, as well as rules for within the game. 
 
 **StemSurvival.zip:** Contains all the .java files necessary for playing the game.
+
+**SudokuSolver.java:** Solves 3 selected Sudoku puzzles I have in the file. From the website I got them from, two were described as "Easiest", and one was described as "Intermediate". Unfortunately, I hit a stack overflow at "Difficult". First time learning/writing a backtracking algorithm.
