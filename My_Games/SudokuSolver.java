@@ -1,5 +1,4 @@
 import java.util.*;
-
 //I'll use this class to keep track of important information about each space. Mainly the avaiable moves.
 class space
 {
@@ -14,6 +13,20 @@ public class SudokuSolver
 {
 	//Keeps track of how many iterations it takes to solve.
 	public static int count = 0;
+	public static int totalCount = 0;
+
+	//Method to count if the board is complete.
+	public static boolean completeBoard(space[][] spaceBoard)
+	{
+		for(int i = 0; i < spaceBoard.length; i++)
+		{
+			for(int j = 0; j < spaceBoard[0].length; j++)
+			{
+				if(spaceBoard[i][j].placedNumber == 0) return false;
+			}
+		}
+		return true;
+	}
 
 	//Method for creating the space board.
 	public static space[][] createSpaceBoard(int[][] integerBoard)
@@ -35,7 +48,7 @@ public class SudokuSolver
 		return spaceBoard;
 	}
 
-	//Method for getting the first avaiable spot
+	//Method for getting the first avaiable spot you can place move (checked from left to right, up to down)
 	public static int[] firstSpot(space[][] spaceBoard)
 	{
 		int row = 0;
@@ -56,7 +69,7 @@ public class SudokuSolver
 		return null;
 	}
 
-	//Method for the getting the last available spot.
+	//Method for getting the last available spot you can place move (checked from left to right, up to down)
 	public static int[] lastSpot(space[][] spaceBoard)
 	{
 		int row = 0;
@@ -232,6 +245,7 @@ public class SudokuSolver
 		return ABC;
 	}
 
+	//Generates calls previous methods to get the final good move list, and returns true if its not empty.
 	public static boolean goodMove(ArrayList<int[][]> squareList, space[][] spaceBoard, int row, int col)
 	{
 		//Generate the three lists of numbers.
@@ -252,7 +266,8 @@ public class SudokuSolver
 	public static boolean findSolution(ArrayList<int[][]> squareList, space[][] spaceBoard, int row, int col,boolean forward, int[] last)
 	{
 		count++;
-		if(count > 4500) return true;
+		//If your going to run out of stacks soon, return to free, and pick up where you left off.
+		if(count > 3000 && forward) return true;
 		//If the last space was filled (since it's empty, return true).
 		if(spaceBoard[last[0]][last[1]].placedNumber != 0) return true;
 
@@ -281,23 +296,35 @@ public class SudokuSolver
 
 	public static void main(String[] args)
 	{
-		//Create the first board and initialize everything.
-		int[][] integerBoard1 = {{0,0,0,2,6,0,7,0,1},{6,8,0,0,7,0,0,9,0},{1,9,0,0,0,4,5,0,0},{8,2,0,1,0,0,0,4,0},{0,0,4,6,0,2,9,0,0},{0,5,0,0,0,3,0,2,8},{0,0,9,3,0,0,0,7,4},{0,4,0,0,5,0,0,3,6},{7,0,3,0,1,8,0,0,0}};
-		space[][] spaceBoard1 = createSpaceBoard(integerBoard1);
-		int[] firstMove1 = firstSpot(spaceBoard1);
-		int[] lastMove1 = lastSpot(spaceBoard1);
+		//*****************************Creating all the boards*****************************
 
-		//Create the second board and intialize everything.
+		space[][] spaceBoard;
+		//Create the first board.
+		int[][] integerBoard1 = {{0,0,0,2,6,0,7,0,1},{6,8,0,0,7,0,0,9,0},{1,9,0,0,0,4,5,0,0},{8,2,0,1,0,0,0,4,0},{0,0,4,6,0,2,9,0,0},{0,5,0,0,0,3,0,2,8},{0,0,9,3,0,0,0,7,4},{0,4,0,0,5,0,0,3,6},{7,0,3,0,1,8,0,0,0}};
+
+		//Create the second board.
 		int[][] integerBoard2 = {{1,0,0,4,8,9,0,0,6},{7,3,0,0,0,0,0,4,0},{0,0,0,0,0,1,2,9,5},{0,0,7,1,2,0,6,0,0},{5,0,0,7,0,3,0,0,8},{0,0,6,0,9,5,7,0,0},{9,1,4,6,0,0,0,0,0},{0,2,0,0,0,0,0,3,7},{8,0,0,5,1,2,0,0,4}};
-		space[][] spaceBoard2 = createSpaceBoard(integerBoard2);
-		int[] firstMove2 = firstSpot(spaceBoard2);
-		int[] lastMove2 = lastSpot(spaceBoard2);
 
 		//Create the third board
 		int[][] integerBoard3 = {{0,2,0,6,0,8,0,0,0},{5,8,0,0,0,9,7,0,0},{0,0,0,0,4,0,0,0,0},{3,7,0,0,0,0,5,0,0},{6,0,0,0,0,0,0,0,4},{0,0,8,0,0,0,0,1,3},{0,0,0,0,2,0,0,0,0},{0,0,9,8,0,0,0,3,6},{0,0,0,3,0,6,0,9,0}};
-		space[][] spaceBoard3 = createSpaceBoard(integerBoard3);
-		int[] firstMove3 = firstSpot(spaceBoard3);
-		int[] lastMove3 = lastSpot(spaceBoard3);
+
+		//Creating fourth board.
+		int[][] integerBoard4 = {{0,0,0,6,0,0,4,0,0},{7,0,0,0,0,3,6,0,0},{0,0,0,0,9,1,0,8,0},{0,0,0,0,0,0,0,0,0},{0,5,0,1,8,0,0,0,3},{0,0,0,3,0,6,0,4,5},{0,4,0,2,0,0,0,6,0},{9,0,3,0,0,0,0,0,0},{0,2,0,0,0,0,1,0,0}};
+
+		//Creating fifth board
+		int[][] integerBoard5 = {{2,0,0,3,0,0,0,0,0},{8,0,4,0,6,2,0,0,3},{0,1,3,8,0,0,2,0,0},{0,0,0,0,2,0,3,9,0},{5,0,7,0,0,0,6,2,1},{0,3,2,0,0,6,0,0,0},{0,2,0,0,0,9,1,4,0},{6,0,1,2,5,0,8,0,9},{0,0,0,0,0,1,0,0,2}};
+
+		//Creating six board
+		int[][] integerBoard6 = {{0,2,0,0,0,0,0,0,0},{0,0,0,6,0,0,0,0,3},{0,7,4,0,8,0,0,0,0},{0,0,0,0,0,3,0,0,2},{0,8,0,0,4,0,0,1,0},{6,0,0,5,0,0,0,0,0},{0,0,0,0,1,0,7,8,0},{5,0,0,0,0,9,0,0,0},{0,0,0,0,0,0,0,4,0}};
+
+		//Making a list of all the boards to iterate.
+		ArrayList<int[][]> allBoards = new ArrayList<>();
+		allBoards.add(integerBoard1);
+		allBoards.add(integerBoard2);
+		allBoards.add(integerBoard3);
+		allBoards.add(integerBoard4);
+		allBoards.add(integerBoard5);
+		allBoards.add(integerBoard6);
 
 		//Generate the arrays of coordinates for the squares
 		int[][] leftUpper = generateSquares(0,0);
@@ -323,35 +350,25 @@ public class SudokuSolver
 		squareList.add(rightLower);
 
 		//*************************Solving the boards*********************************//
-
-		//Solving the first board.
-		System.out.println("The original first board:");
-		printBoard(spaceBoard1);
-		findSolution(squareList,spaceBoard1,firstMove1[0],firstMove1[1],true,lastMove1);
-		System.out.println("\nThe solved first board:");
-		printBoard(spaceBoard1);
-		System.out.println("\nIt took "+count+" iterations to get the result.");
-		System.out.println("*****************************************");
-		count = 0;
-
-		//Solving the second board.
-		System.out.println("The original second board:");
-		printBoard(spaceBoard2);
-		findSolution(squareList,spaceBoard2,firstMove2[0],firstMove2[1],true,lastMove2);
-		System.out.println("\nThe solved second board:");
-		printBoard(spaceBoard2);
-		System.out.println("\nIt took "+count+" iterations to get the result.");
-		System.out.println("*****************************************");
-		count = 0;
-		
-		//Solving third board
-		System.out.println("The original third board:");
-		printBoard(spaceBoard3);
-		findSolution(squareList,spaceBoard3,firstMove3[0],firstMove3[1],true,lastMove3);
-		System.out.println("\nThe solved third board:");
-		printBoard(spaceBoard3);
-		System.out.println("\nIt took "+count+" iterations to get the result.");
-		System.out.println("*****************************************");
-		count = 0;
+		for(int i = 0; i < allBoards.size(); i++)
+		{
+			spaceBoard = createSpaceBoard(allBoards.get(i));
+			System.out.println("Original board "+(i+1)+":");
+			printBoard(spaceBoard);
+			totalCount = 0;
+			while(!completeBoard(spaceBoard))
+			{
+				int[] firstMove = firstSpot(spaceBoard);
+				int[] lastMove = lastSpot(spaceBoard);
+				count = 0;
+				findSolution(squareList,spaceBoard,firstMove[0],firstMove[1],true,lastMove);
+				totalCount += count;
+			}
+			System.out.println("\nSolved board "+(i+1)+":");
+			printBoard(spaceBoard);
+			System.out.print("\nIt took "+totalCount+" steps to solve.\n");
+			System.out.println("*****************************************************");
+			totalCount = 0;
+		}
 	}
 }
