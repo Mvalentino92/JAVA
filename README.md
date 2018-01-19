@@ -39,7 +39,7 @@ Linear Algebra functions, scripts from my class, personal files, and a game!!
 ## My_Games
 **ConnectFour.java:** A text-based Connect Four game to be enjoyed at the terminal. You as the player, face off against the computer. The computer uses a series of algorithms to determine its best course of action. 
 
-**LastChance.java:** Let the fun begin! This is a game involving rolling the given number of dice combinations on a card, in a certain amount of allotted turns. The catch it, you can either bet for yourself, or against yourself! Read the instructions at the top of the file for the full set of rules!
+**LastChance.java:** Let the fun begin! This is a game involving rolling the given number of dice combinations on a card, in a certain amount of allotted turns. The catch is, you can either bet for yourself, or against yourself! Read the instructions at the top of the file for the full set of rules!
 
 **Othello.java:** This is a text based version of the game Othello, (or you may know it as Reversi). Same sort of set up as the ConnectFour.java game above. You have the option to either to play against another player, or the computer. The computer tries to access which move is the best course of action every turn using an algorithm I wrote. Have fun.
 
