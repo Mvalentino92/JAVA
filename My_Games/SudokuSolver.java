@@ -28,6 +28,51 @@ public class SudokuSolver
 		return true;
 	}
 
+	//Checks to make sure the final board is correct.
+	public static boolean isCorrect(space[][] spaceBoard)
+	{
+		for(int i = 0; i < spaceBoard.length; i++)
+		{
+			for(int j = 0; j < spaceBoard[0].length; j++)
+			{
+				//Begin checking the row for this space
+				for(int jj = 0; jj < spaceBoard[0].length; jj++)
+				{
+					if(j == jj) continue;
+					if(spaceBoard[i][j].placedNumber == spaceBoard[i][jj].placedNumber)
+					{
+						return false;
+					}
+				}
+				//Begin checking the column
+				for(int ii = 0; ii < spaceBoard.length; ii++)
+				{
+					if(i == ii) continue;
+					if(spaceBoard[i][j].placedNumber == spaceBoard[ii][j].placedNumber)
+					{
+						return false;
+					}
+				}
+				//Begin checking the square for this space
+				int startRow = i - (i % 3);
+				int startCol = j - (j % 3);
+				for(int ii = startRow; ii < startRow + 3; ii++)
+				{
+					for(int jj = startCol; jj < startCol + 3; jj++)
+					{
+						if(i == ii && j == jj) continue;
+					       if(spaceBoard[i][j].placedNumber == spaceBoard[ii][jj].placedNumber)
+						{
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+
 	//Method for creating the space board.
 	public static space[][] createSpaceBoard(int[][] integerBoard)
 	{
@@ -364,9 +409,13 @@ public class SudokuSolver
 				findSolution(squareList,spaceBoard,firstMove[0],firstMove[1],true,lastMove);
 				totalCount += count;
 			}
-			System.out.println("\nSolved board "+(i+1)+":");
-			printBoard(spaceBoard);
-			System.out.print("\nIt took "+totalCount+" steps to solve.\n");
+			if(isCorrect(spaceBoard))
+			{
+				System.out.println("\nSolved board "+(i+1)+":");
+				printBoard(spaceBoard);
+				System.out.print("\nIt took "+totalCount+" steps to solve.\n");
+			}
+			else System.out.println("No solution found");
 			System.out.println("*****************************************************");
 			totalCount = 0;
 		}
