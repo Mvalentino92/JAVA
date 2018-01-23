@@ -72,7 +72,6 @@ public class SudokuSolver
 		return true;
 	}
 
-
 	//Method for creating the space board.
 	public static space[][] createSpaceBoard(int[][] integerBoard)
 	{
@@ -188,8 +187,6 @@ public class SudokuSolver
 		}
 	}
 	
-
-
 	//**********************Methods for ultimately generating the list of possible moves********************
 	
 	//Generate squares, all 9 of them.
@@ -209,7 +206,8 @@ public class SudokuSolver
 	}	
 
 	//Find which square the current coordinates belong to, and then return a list of good numbers
-	public static ArrayList<Integer> goodSquareNumbers(ArrayList<int[][]> squareList,space[][] spaceBoard, int row, int col)
+	public static ArrayList<Integer> goodSquareNumbers(ArrayList<int[][]> squareList,
+			space[][] spaceBoard, int row, int col)
 	{
 		ArrayList<Integer> goodNumbers = new ArrayList<>();
 		for(int i = 0; i < squareList.size(); i++)
@@ -223,7 +221,9 @@ public class SudokuSolver
 
 					for(int ii = 0; ii < 9; ii++)
 					{
-						int indexNumber = goodNumbers.indexOf(spaceBoard[squareList.get(i)[ii][0]][squareList.get(i)[ii][1]].placedNumber);
+						int indexNumber = goodNumbers.indexOf(spaceBoard
+						[squareList.get(i)[ii][0]]
+						[squareList.get(i)[ii][1]].placedNumber);
 						if(indexNumber > -1) goodNumbers.remove(indexNumber);
 					}
 					return goodNumbers;
@@ -231,7 +231,7 @@ public class SudokuSolver
 				else continue;
 			}
 		}
-		return null;
+		return goodNumbers;
 	}
 
 	//Returns a list of the current coordinates good numbers for that row.
@@ -263,7 +263,8 @@ public class SudokuSolver
 	}
 
 	//Returns the final list of good numbers for that current position.
-	public static ArrayList<Integer> finalGoodNumbers(ArrayList<Integer> A, ArrayList<Integer> B, ArrayList<Integer> C)
+	public static ArrayList<Integer> finalGoodNumbers(ArrayList<Integer> A, ArrayList<Integer> B,
+		       	ArrayList<Integer> C)
 	{
 		ArrayList<Integer> AB = new ArrayList<>();
 		for(int i = 0; i < A.size(); i++)
@@ -308,7 +309,8 @@ public class SudokuSolver
 	//************************Main recursive method**********************************************//
 	
 	//Method that recursively searches for the solution, using backtracking.
-	public static boolean findSolution(ArrayList<int[][]> squareList, space[][] spaceBoard, int row, int col,boolean forward, int[] last)
+	public static boolean findSolution(ArrayList<int[][]> squareList, space[][] spaceBoard,
+		       	int row, int col,boolean forward, int[] last)
 	{
 		count++;
 		//If your going to run out of stacks soon, return to free, and pick up where you left off.
@@ -345,22 +347,39 @@ public class SudokuSolver
 
 		space[][] spaceBoard;
 		//Create the first board.
-		int[][] integerBoard1 = {{0,0,0,2,6,0,7,0,1},{6,8,0,0,7,0,0,9,0},{1,9,0,0,0,4,5,0,0},{8,2,0,1,0,0,0,4,0},{0,0,4,6,0,2,9,0,0},{0,5,0,0,0,3,0,2,8},{0,0,9,3,0,0,0,7,4},{0,4,0,0,5,0,0,3,6},{7,0,3,0,1,8,0,0,0}};
+		int[][] integerBoard1 = {{0,0,0,2,6,0,7,0,1},{6,8,0,0,7,0,0,9,0},{1,9,0,0,0,4,5,0,0},
+					{8,2,0,1,0,0,0,4,0},{0,0,4,6,0,2,9,0,0},{0,5,0,0,0,3,0,2,8},
+					{0,0,9,3,0,0,0,7,4},{0,4,0,0,5,0,0,3,6},{7,0,3,0,1,8,0,0,0}};
 
 		//Create the second board.
-		int[][] integerBoard2 = {{1,0,0,4,8,9,0,0,6},{7,3,0,0,0,0,0,4,0},{0,0,0,0,0,1,2,9,5},{0,0,7,1,2,0,6,0,0},{5,0,0,7,0,3,0,0,8},{0,0,6,0,9,5,7,0,0},{9,1,4,6,0,0,0,0,0},{0,2,0,0,0,0,0,3,7},{8,0,0,5,1,2,0,0,4}};
+		int[][] integerBoard2 = {{1,0,0,4,8,9,0,0,6},{7,3,0,0,0,0,0,4,0},{0,0,0,0,0,1,2,9,5},
+					{0,0,7,1,2,0,6,0,0},{5,0,0,7,0,3,0,0,8},{0,0,6,0,9,5,7,0,0},
+					{9,1,4,6,0,0,0,0,0},{0,2,0,0,0,0,0,3,7},{8,0,0,5,1,2,0,0,4}};
 
 		//Create the third board
-		int[][] integerBoard3 = {{0,2,0,6,0,8,0,0,0},{5,8,0,0,0,9,7,0,0},{0,0,0,0,4,0,0,0,0},{3,7,0,0,0,0,5,0,0},{6,0,0,0,0,0,0,0,4},{0,0,8,0,0,0,0,1,3},{0,0,0,0,2,0,0,0,0},{0,0,9,8,0,0,0,3,6},{0,0,0,3,0,6,0,9,0}};
+		int[][] integerBoard3 = {{0,2,0,6,0,8,0,0,0},{5,8,0,0,0,9,7,0,0},{0,0,0,0,4,0,0,0,0},
+					{3,7,0,0,0,0,5,0,0},{6,0,0,0,0,0,0,0,4},{0,0,8,0,0,0,0,1,3},
+					{0,0,0,0,2,0,0,0,0},{0,0,9,8,0,0,0,3,6},{0,0,0,3,0,6,0,9,0}};
 
 		//Creating fourth board.
-		int[][] integerBoard4 = {{0,0,0,6,0,0,4,0,0},{7,0,0,0,0,3,6,0,0},{0,0,0,0,9,1,0,8,0},{0,0,0,0,0,0,0,0,0},{0,5,0,1,8,0,0,0,3},{0,0,0,3,0,6,0,4,5},{0,4,0,2,0,0,0,6,0},{9,0,3,0,0,0,0,0,0},{0,2,0,0,0,0,1,0,0}};
+		int[][] integerBoard4 = {{0,0,0,6,0,0,4,0,0},{7,0,0,0,0,3,6,0,0},{0,0,0,0,9,1,0,8,0},
+					{0,0,0,0,0,0,0,0,0},{0,5,0,1,8,0,0,0,3},{0,0,0,3,0,6,0,4,5},
+					{0,4,0,2,0,0,0,6,0},{9,0,3,0,0,0,0,0,0},{0,2,0,0,0,0,1,0,0}};
 
 		//Creating fifth board
-		int[][] integerBoard5 = {{2,0,0,3,0,0,0,0,0},{8,0,4,0,6,2,0,0,3},{0,1,3,8,0,0,2,0,0},{0,0,0,0,2,0,3,9,0},{5,0,7,0,0,0,6,2,1},{0,3,2,0,0,6,0,0,0},{0,2,0,0,0,9,1,4,0},{6,0,1,2,5,0,8,0,9},{0,0,0,0,0,1,0,0,2}};
+		int[][] integerBoard5 = {{2,0,0,3,0,0,0,0,0},{8,0,4,0,6,2,0,0,3},{0,1,3,8,0,0,2,0,0},
+					{0,0,0,0,2,0,3,9,0},{5,0,7,0,0,0,6,2,1},{0,3,2,0,0,6,0,0,0},
+					{0,2,0,0,0,9,1,4,0},{6,0,1,2,5,0,8,0,9},{0,0,0,0,0,1,0,0,2}};
 
 		//Creating six board
-		int[][] integerBoard6 = {{0,2,0,0,0,0,0,0,0},{0,0,0,6,0,0,0,0,3},{0,7,4,0,8,0,0,0,0},{0,0,0,0,0,3,0,0,2},{0,8,0,0,4,0,0,1,0},{6,0,0,5,0,0,0,0,0},{0,0,0,0,1,0,7,8,0},{5,0,0,0,0,9,0,0,0},{0,0,0,0,0,0,0,4,0}};
+		int[][] integerBoard6 = {{0,2,0,0,0,0,0,0,0},{0,0,0,6,0,0,0,0,3},{0,7,4,0,8,0,0,0,0},
+					{0,0,0,0,0,3,0,0,2},{0,8,0,0,4,0,0,1,0},{6,0,0,5,0,0,0,0,0},
+					{0,0,0,0,1,0,7,8,0},{5,0,0,0,0,9,0,0,0},{0,0,0,0,0,0,0,4,0}};
+
+		//Creating seventh board
+		int[][] integerBoard7 = {{8,0,0,0,0,0,0,0,0},{0,0,3,6,0,0,0,0,0},{0,7,0,0,9,0,2,0,0},
+					{0,5,0,0,0,7,0,0,0},{0,0,0,0,4,5,7,0,0},{0,0,0,1,0,0,0,3,0},
+					{0,0,1,0,0,0,0,6,8},{0,0,8,5,0,0,0,1,0},{0,9,0,0,0,0,4,0,0}};
 
 		//Making a list of all the boards to iterate.
 		ArrayList<int[][]> allBoards = new ArrayList<>();
@@ -370,6 +389,7 @@ public class SudokuSolver
 		allBoards.add(integerBoard4);
 		allBoards.add(integerBoard5);
 		allBoards.add(integerBoard6);
+		allBoards.add(integerBoard7);
 
 		//Generate the arrays of coordinates for the squares
 		int[][] leftUpper = generateSquares(0,0);
