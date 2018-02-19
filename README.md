@@ -50,3 +50,5 @@ Linear Algebra functions, scripts from my class, personal files, and some games!
 **StemSurvival.zip:** Contains all the .java files necessary for playing the game.
 
 **SudokuSolver.java:** Solves 6 Sudoku boards ranging from easy to very difficult. Uses a backtracking algorithm. The backtracking algorithms stacks arent freed until it arrives at a solution. So in order to free the stack and not overflow, each recursive call is tracked, and once it hits a safe threshold it stops and returns the board. The method is continously called (where it last left off) until it arrives at a solution.
+
+**mastermind.java:** Simple Mastermind game. Lets you choose how many numbers you want to guess, as well as how many guesses you are given.
