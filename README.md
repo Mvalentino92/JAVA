@@ -1,5 +1,5 @@
 # JAVA
-Linear Algebra functions, scripts from my class, personal files, and some games!!
+Linear Algebra functions, scripts from my computer science courses, personal files, and some games!!
 
 ## Linear_Algebra:
 **EigenValues.java:** Finds all the eigenvalues of a matrix within certain constraints. The *constraints* are as follows:
@@ -11,7 +11,22 @@ Linear Algebra functions, scripts from my class, personal files, and some games!
 
 **linsolve.java:** Utilizes Gaussian Elimination, the inverse, and matrix multiplication to return the coefficients for a systems of a equations.
 
-## Intro_To_Programming
+## My_Games
+**ConnectFour.java:** A text-based Connect Four game to be enjoyed at the terminal. You as the player, face off against the computer. The computer uses a series of algorithms to determine its best course of action. 
+
+**LastChance.java:** Let the fun begin! This is a game involving rolling the given number of dice combinations on a card, in a certain amount of allotted turns. The catch is, you can either bet for yourself, or against yourself! Read the instructions at the top of the file for the full set of rules!
+
+**Othello.java:** This is a text based version of the game Othello, (or you may know it as Reversi). Same sort of set up as the ConnectFour.java game above. You have the option to either to play against another player, or the computer. The computer tries to access which move is the best course of action every turn using an algorithm I wrote. Have fun.
+
+**STEMSurvivalRules.pdf:** Contains information on how to play the game, as well as rules for within the game. 
+
+**StemSurvival.zip:** Contains all the .java files necessary for playing the game.
+
+**SudokuSolver.java:** Solves 6 Sudoku boards ranging from easy to very difficult. Uses a backtracking algorithm. The backtracking algorithms stacks arent freed until it arrives at a solution. So in order to free the stack and not overflow, each recursive call is tracked, and once it hits a safe threshold it stops and returns the board. The method is continously called (where it last left off) until it arrives at a solution.
+
+**mastermind.java:** Simple Mastermind game. Lets you choose how many numbers you want to guess, as well as how many guesses you are given.
+
+## Programming_Classes
 **EncodeAndDecodeJavaFiles.java && EncryptAndDecrypt.java:** Encodes and decodes .java files using the following algorithm. Counts the number of letters in each word and shifts each of the letters in that word by that number. Only letters of the alphabet (both upper and lowercase) count as letters, and words are any characters seperated by either spaces, periods, brackets, or parenthesis. Returns a new file which represents either the encoded and decoded .java file.
 
 **FinalTax.java:** Calculates how much of a clients income will be taxed, based on their filing status. Returns their tax bracket, ID, and tax.
@@ -37,18 +52,3 @@ Linear Algebra functions, scripts from my class, personal files, and some games!
 **interview.java:** Conducts an interview with the user. Creates a file containing the questions and their responses, and then reads the file back if the file creation was successful. Does not let an interview be conducted with the same person twice, and will throw an exception during attempted readback if the file was created unsuccessfully. 
 
 **timeOfDeathDiffApproach.java:** Much like the TimeOfDeath file, but done in a bit of a different way. Just exploring the possibilities for solving the same problem.
-
-## My_Games
-**ConnectFour.java:** A text-based Connect Four game to be enjoyed at the terminal. You as the player, face off against the computer. The computer uses a series of algorithms to determine its best course of action. 
-
-**LastChance.java:** Let the fun begin! This is a game involving rolling the given number of dice combinations on a card, in a certain amount of allotted turns. The catch is, you can either bet for yourself, or against yourself! Read the instructions at the top of the file for the full set of rules!
-
-**Othello.java:** This is a text based version of the game Othello, (or you may know it as Reversi). Same sort of set up as the ConnectFour.java game above. You have the option to either to play against another player, or the computer. The computer tries to access which move is the best course of action every turn using an algorithm I wrote. Have fun.
-
-**STEMSurvivalRules.pdf:** Contains information on how to play the game, as well as rules for within the game. 
-
-**StemSurvival.zip:** Contains all the .java files necessary for playing the game.
-
-**SudokuSolver.java:** Solves 6 Sudoku boards ranging from easy to very difficult. Uses a backtracking algorithm. The backtracking algorithms stacks arent freed until it arrives at a solution. So in order to free the stack and not overflow, each recursive call is tracked, and once it hits a safe threshold it stops and returns the board. The method is continously called (where it last left off) until it arrives at a solution.
-
-**mastermind.java:** Simple Mastermind game. Lets you choose how many numbers you want to guess, as well as how many guesses you are given.
