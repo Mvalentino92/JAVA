@@ -27,6 +27,8 @@ Linear Algebra functions, scripts from my computer science courses, personal fil
 **mastermind.java:** Simple Mastermind game. Lets you choose how many numbers you want to guess, as well as how many guesses you are given.
 
 ## Programming_Classes
+**BinarySearch.java:** Peforms a simple binary search on an array of ints.
+
 **EncodeAndDecodeJavaFiles.java && EncryptAndDecrypt.java:** Encodes and decodes .java files using the following algorithm. Counts the number of letters in each word and shifts each of the letters in that word by that number. Only letters of the alphabet (both upper and lowercase) count as letters, and words are any characters seperated by either spaces, periods, brackets, or parenthesis. Returns a new file which represents either the encoded and decoded .java file.
 
 **FinalTax.java:** Calculates how much of a clients income will be taxed, based on their filing status. Returns their tax bracket, ID, and tax.
