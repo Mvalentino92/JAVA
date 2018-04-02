@@ -2,6 +2,53 @@ import java.io.*;
 import java.util.*;
 public class FlashCards
 {
+	//Method to limit the number of characters per line during printout
+	public static void formatLines(String s, int lines, int indent)
+	{
+		int count = 0;
+		for(int i = 0; i < s.length(); i++)
+		{
+			count++;
+			//If the space between words equals the threshhold of characters per line, just start the next time
+			if(s.charAt(i) == ' ' && count == lines) 
+			{
+				System.out.println();
+				for(int k = 0; k < indent; k++)
+				{
+					System.out.print(' ');
+				}
+				count = 0;
+			}
+			//Otherwise, before we start printing the next word, we need to check if by printing that entire word, it will run over the threshold
+			else if(s.charAt(i) == ' ' && i + 1 < s.length())
+			{
+				int j = i + 1;
+				int countHold = count;
+				while(s.charAt(j) != ' ')
+				{
+					j++;
+					countHold++;
+					if(j >= s.length()) break;
+				}
+				if(countHold > lines)
+				{
+					System.out.println();
+					for(int k = 0; k < indent; k++)
+					{
+						System.out.print(' ');
+					}
+					count = 0;
+				}
+				else System.out.print(s.charAt(i));
+			}
+			//Otherwise, just continue printing the word your currently printing
+			else
+			{
+				System.out.print(s.charAt(i));
+			}
+		}
+	}
+
 	//Method to randomly shuffle the elements of an ArrayList and return an array.
 	public static String[] generateCards(ArrayList<String> cards, String[] shuffled, int count)
 	{
@@ -28,6 +75,7 @@ public class FlashCards
 
 	public static void main(String[] args) throws Exception
 	{
+		int lineLimit = 75;
 		//Initializing the ArrayList and the index count, and the count for how many questions are answered incorrectly.
 		int wrongCount = 0;
 		ArrayList<String> myCards = new ArrayList<>();
@@ -51,7 +99,8 @@ public class FlashCards
 			System.out.println("ERROR: File does not exist. Please ensure the following"+
 					"\n1) You have spelled the file name correctly."
 					+"\n2) The file is in the same directory/folder as this script."
-					+"\n3) You are including an file type extensions, like .txt.");
+					+"\n3) You aren't including an file type extensions, like .txt."
+					+"\n4) Dont be a giant maps.");
 			System.exit(1);
 		}
 		
@@ -76,13 +125,15 @@ public class FlashCards
 		System.out.println();
 		for(int i = 0, j = 1; i < shuffled.length; i += 2, j++)
 		{
-			System.out.print("QUESTION "+j+": ");
-			System.out.println(shuffled[i]);
-			System.out.print("\nPress ENTER to view answer: ");
+			String indent = "QUESTION "+j+": ";
+			System.out.print(indent);
+			formatLines(shuffled[i],lineLimit,indent.length());
+			System.out.print("\n\nPress ENTER to view answer: ");
 			input.nextLine();
-			System.out.print("ANSWER: ");
-			System.out.println(shuffled[i+1]);
-			System.out.print("\nDid you get that question correct?: [y/n] ");
+			indent = "ANSWER: ";
+			System.out.print(indent);
+			formatLines(shuffled[i+1],lineLimit,indent.length());
+			System.out.print("\n\nDid you get that question correct?: [y/n] ");
 			String verdict = input.next();
 			if(verdict.charAt(0) == 'n')
 			{
@@ -103,6 +154,10 @@ public class FlashCards
 
 		while(wrong.hasNextLine())
 		{
+			for(int i = 0; i < 50; i++)
+			{
+				System.out.println();
+			}
 			System.out.print("*************************************************************************");
 			questionRounds++;
 			System.out.println("\nROUND "+questionRounds);
@@ -128,13 +183,15 @@ public class FlashCards
 			System.out.println();
 			for(int i = 0, j = 1; i < shuffled.length; i += 2, j++)
 			{
-				System.out.print("QUESTION "+j+": ");
-				System.out.println(shuffled[i]);
-				System.out.print("\nPress ENTER to view answer: ");
+				String indent = "QUESTION "+j+": ";
+				System.out.print(indent);
+				formatLines(shuffled[i],lineLimit,indent.length());
+				System.out.print("\n\nPress ENTER to view answer: ");
 				input.nextLine();
-				System.out.print("ANSWER: ");
-				System.out.println(shuffled[i+1]);
-				System.out.print("\nDid you get that question correct?: [y/n] ");
+				indent = "ANSWER: ";
+				System.out.print(indent);
+				formatLines(shuffled[i+1],lineLimit,indent.length());
+				System.out.print("\n\nDid you get that question correct?: [y/n] ");
 				String verdict = input.next();
 				if(verdict.charAt(0) == 'n')
 				{
