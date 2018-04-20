@@ -18,6 +18,7 @@ public class BinarySearch
 			if(target > number) l = index + 1;
 			else r = index - 1;
 			index = l + (r-l)/2;
+			if(index >= list.length || index < 0) return -1;
 			number = list[index];
 			if(temp == index) return -1;
 		}
@@ -39,5 +40,7 @@ public class BinarySearch
 		{
 			if(list[bs(list,list[i])] != list[i]) System.out.println("WRONG!!");
 		}
+		int[] a = {1,2,3,4,6,7,8};
+		System.out.println(bs(a,5));
 	}
 }
