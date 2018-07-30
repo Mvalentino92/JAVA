@@ -20,6 +20,8 @@ Linear Algebra functions, scripts from my computer science courses, personal fil
 
 **STEMSurvivalRules.pdf:** Contains information on how to play the game, as well as rules for within the game. 
 
+**ScrabbleWordFind.zip:** Inspired from playing a Scrabble app with my girlfriend! The bonus points from using all your letters are very sweet, but, it's often difficult to see if you can make any seven letter words (unless you hit shuffle a million times!). The main file will prompt you to enter your letters, and will return all possible 7 letter words (From the Collins Dictionary). Just intended for our personal use, so it will throw an error if you don't supply the input as "abcdefg". 
+
 **StemSurvival.zip:** Contains all the .java files necessary for playing the game.
 
 **SudokuSolver.java:** Solves 6 Sudoku boards ranging from easy to very difficult. Uses a backtracking algorithm. The backtracking algorithms stacks arent freed until it arrives at a solution. So in order to free the stack and not overflow, each recursive call is tracked, and once it hits a safe threshold it stops and returns the board. The method is continously called (where it last left off) until it arrives at a solution.
