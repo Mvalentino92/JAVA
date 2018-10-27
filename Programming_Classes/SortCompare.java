@@ -82,6 +82,53 @@ public class SortCompare
 		//Return the new, and sorted ArrayList
 		return retval;
 	}
+	
+	//Performs the mergeSort algorithm
+	public static Integer[] MS(Integer[] arr)
+	{
+		//Base case
+		if(arr.length <= 1) return arr;
+
+		//Partition into two arrays, and recursively call it
+		int halfWay = arr.length/2;
+		Integer[] l = new Integer[halfWay];
+		Integer[] r = new Integer[arr.length - halfWay];
+
+		//Set arrays
+		int lDex = 0;
+		int rDex = 0;
+		for(int i = 0; i < halfWay; i++) l[lDex++] = arr[i];;
+		for(int i = halfWay; i < arr.length; i++) r[rDex++] = arr[i];
+
+		//Recursively call mergesort
+		return merge(MS(l),MS(r));
+	}
+
+	//Merges for Iterative MergeSort
+	public static void iMerge(Integer[] l, Integer[] r, Integer[] arr, int index)
+	{
+		//Init indexes
+		int i = 0;
+		int j = 0;
+		
+		//Loop through and add values
+		while(i < l.length && j < r.length)
+		{
+			if(l[i].compareTo(r[j]) <= 0) arr[index++] = l[i++];
+			else arr[index++] = r[j++];
+		}
+
+		//Check to see who finished first, then add the rest of the other person
+		if(i == l.length)
+		{
+			for(int k = j; k < r.length; k++) arr[index++] = r[k];;
+		}
+		else
+		{
+			for(int k = i; k < l.length; k++) arr[index++] = l[k];
+		}
+		return;
+	}
 
 	//Iterative mergesort function
 	public static void iMergeSort(Integer[] arr)
@@ -110,10 +157,7 @@ public class SortCompare
 				for(int k = 0; k < r.length; k++) r[k] = arr[i+k+pow2];
 
 				//Get merged
-				Integer[] m = merge(l,r);
-
-				//Replace with merged array.
-				for(int j = 0; j < m.length; j++) arr[i+j] = m[j];
+				iMerge(l,r,arr,i);
 			}
 			/*Handle if there is remainders or not*/
 			pow2 <<= 1;
@@ -129,51 +173,43 @@ public class SortCompare
 			for(int k = 0; k < r.length; k++) r[k] = arr[i+k+pow2];
 
 			//Get merged
-			Integer[] m = merge(l,r);
-			for(int j = 0; j < m.length; j++) arr[i+j] = m[j];
+			iMerge(l,r,arr,i);
 		}
-	}
-	
-	//Performs the mergeSort algorithm
-	public static Integer[] MS(Integer[] arr)
-	{
-		//Base case
-		if(arr.length <= 1) return arr;
-
-		//Partition into two arrays, and recursively call it
-		int halfWay = arr.length/2;
-		Integer[] l = new Integer[halfWay];
-		Integer[] r = new Integer[arr.length - halfWay];
-
-		//Set arrays
-		int lDex = 0;
-		int rDex = 0;
-		for(int i = 0; i < halfWay; i++) l[lDex++] = arr[i];;
-		for(int i = halfWay; i < arr.length; i++) r[rDex++] = arr[i];
-
-		//Recursively call mergesort
-		return merge(MS(l),MS(r));
 	}
 
 	public static void main(String[] args)
 	{
 		//Compare all 4 implementations of the sorting algorithms
-		int[] inputs = {10,100,1000,10000,100000,1000000,(int)(Math.pow(2,21)),
+		int[] inputs = {10,100,1000,10000,32768,100000,1000000,(int)(Math.pow(2,21)),
 			       (int)(Math.pow(2,22)),(int)(Math.pow(2,23)),10000000};
 		for(int i = 0; i < inputs.length; i++)
 		{
+			boolean doInsertion = i < 5 ? true : false;
 			//Get array of numbers to be sorted
 			Integer[] test = new Integer[inputs[i]];
+			Integer[] TRUE = new Integer[test.length];
+			Integer[] qs = new Integer[test.length];
 			Integer[] rm = new Integer[test.length];
 			Integer[] im = new Integer[test.length];
-			Integer[] qs = new Integer[test.length];
+			MyLinkedList<Integer> li = new MyLinkedList<>();
 			for(int j = 0; j < test.length; j++)
 			{
 				test[j] = Integer.valueOf((int)(Math.random()*(test.length/3)));
+				TRUE[j] = test[j];
+				qs[j] = test[j];
 				rm[j] = test[j];
 				im[j] = test[j];
-				qs[j] = test[j];
+				if(doInsertion) li.add(test[j]);
 			}
+			//Javas Arrays.sort()
+			double javaStart = System.nanoTime();
+			Arrays.sort(TRUE);
+			double javaTime = (System.nanoTime() - javaStart)/1e9;
+
+			//Recursive QuickSort
+			double qsStart = System.nanoTime();
+			quickSort(qs);
+			double qsTime = (System.nanoTime() - qsStart)/1e9;
 
 			//MergeSort Recursive
 			double rmStart = System.nanoTime();
@@ -184,11 +220,6 @@ public class SortCompare
 			double imStart = System.nanoTime();
 			iMergeSort(im);
 			double imTime = (System.nanoTime() - imStart)/1e9;
-
-			//Recursive QuickSort
-			double qsStart = System.nanoTime();
-			quickSort(qs);
-			double qsTime = (System.nanoTime() - qsStart)/1e9;
 
 			//Heap
 			Heap<Integer> heap = new Heap<>();
@@ -206,13 +237,44 @@ public class SortCompare
 			for(int k = 0; k < test.length; k++) sortedPeap[test.length - 1 - k] = peap.remove();
 			double peapTime = (System.nanoTime() - peapStart)/1e9;
 
-			//Print the time for all
+			//Linked Insertion Sort
+			double liTime = 0;
+			if(doInsertion)
+			{
+				double liStart = System.nanoTime();
+				li.iSort();
+				liTime = (System.nanoTime() - liStart)/1e9;
+			}
+
+			//Check if all correct before printing
+			for(int j = 0; j < TRUE.length; j++)
+			{
+				Integer x = doInsertion ? li.get(j) : TRUE[j];
+				if(TRUE[j].compareTo(qs[j]) != 0 ||
+			           TRUE[j].compareTo(rm[j]) != 0 ||
+				   TRUE[j].compareTo(im[j]) != 0 ||
+				   TRUE[j].compareTo(sortedHeap[j]) != 0 ||
+				   TRUE[j].compareTo(sortedPeap[j]) != 0 ||
+				   TRUE[j].compareTo(x) != 0)
+				{
+					System.out.println("SORTED INCORRECTLY!");
+					System.exit(1);
+				}
+			}
+
+			//Print the time for all if correct
 			System.out.println("Sorting "+test.length+" elements: ");
+			System.out.println("Java's Arrays.sort() took "+javaTime+" seconds.");
 			System.out.println("Recursive QuickSort took "+qsTime+" seconds.");
 			System.out.println("Recursive MergeSort took "+rmTime+" seconds.");
 			System.out.println("Iterative MergeSort took "+imTime+" seconds.");
 			System.out.println("HeapSort took "+heapTime+" seconds.");
-			System.out.println("PeapSort took "+peapTime+" seconds.\n");
+			System.out.println("PeapSort took "+peapTime+" seconds.");
+			if(doInsertion) 
+			{
+				System.out.println("Linked InsertionSort took "+liTime+" seconds.\n");
+			}
+			else System.out.println();
 		}
 	}
 }
