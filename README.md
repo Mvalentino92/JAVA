@@ -39,6 +39,8 @@ Linear Algebra functions, notable scripts from my computer science courses, pers
 
 **SecretMessages.java:** A Message class that supports encryption and decryption using a simple Caesar Cipher. 
 
+**SortingCompare.zip:** Compares the higher end sorting algorithms against each other (as well as Java's Arrays.sort(). The algorithms being compared are: 
+
 **TimeOfDeath.java:** Classical Newtons Law of Cooling problem. You need to find what time someone died. All you have is the temperature of the environment, and some times with corresponding body temperatures. It is an automated script, and prompts you to enter values. It can handle environmental temperatures that are not constant, by solving a systems of equations to generete the coefficients of the polynomial of best fit. Will output the time of death.
 
 **Valentino_SIR_MODEL.java:** Prompts the user for information about a population to simulate an infectious epidemic. Opts to implement a quarantine option, and utilizes a Plotting Tool (Credited to my professor) in order to plot the results.
