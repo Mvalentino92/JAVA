@@ -39,6 +39,8 @@ Linear Algebra functions, notable scripts from my computer science courses, pers
 
 **RecursiveInterpolation.java:** Uses recursion to linearly interpolate halfway between all the supplied data points. Continues to do so until the new array length reaches the size specified by the user. The larger the desired array compared to the original, the less accurate the final returned array will be, as each subsequent method call is interpolating previously interpolated points.
 
+**RecursiveSum.java:** A file created to help teach recursion. Given an array of ints, return all possible sums by combining these ints without repition. Simple recursive function to highlight how recursion can be used to explore all possibilities.
+
 **SecretMessages.java:** A Message class that supports encryption and decryption using a simple Caesar Cipher. 
 
 **SortingCompare.zip:** Compares the higher end sorting algorithms against each other (as well as Java's Arrays.sort()). The algorithms being compared are:
