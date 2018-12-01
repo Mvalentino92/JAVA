@@ -35,6 +35,8 @@ Linear Algebra functions, notable scripts from my computer science courses, pers
 
 **FlashCards.java:** Reads a file provided by the user with questions and answers. Randomly shuffles the questions, and displays the text to the user. After the answer is shown, the user specifies if they answered the question correctly. All incorrectly answered questions will be asked again next round (shuffled as well). Will keep repeating this process until all questions are answered correctly.
 
+**KnapSack.java:** Solves the bounded or 0-1 KnapSack problem using Dynamic Programming. Feel like every programmers gotta do it at some point!
+
 **MLCS.java:** The longest commmon substring problem. Can be used to the find the LCS between any number of Strings. The easy LCS problem to solve is the one where you are just comparing 2 Strings. So to compare n Strings, the idea is to keep breaking down the problem in a way where I'm only ever solving the 2 String problem over and over again until I arrive at the solution.
 
 **Program1_Checker.java:** A program my professor had me write to help them grade a class project. It reads in the student output file and checks it against the professor's "master output file" for correctness with some tolerance for formatting.
