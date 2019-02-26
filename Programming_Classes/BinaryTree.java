@@ -40,7 +40,8 @@ class Tree<E extends Comparable<E>>
 			current++;
 			depth++;
 		}
-		else addHelper(root,element,current,depth);}
+		else addHelper(root,element,current,depth);
+	}
 
 
 	//The recursive add function
@@ -59,19 +60,13 @@ class Tree<E extends Comparable<E>>
 		//Sub base cases, if current is less than 3
 		if(cCurrent < 3)
 		{
-			//If it's 0, give the root a value, and increment current.
-			if(cCurrent == 0)
-			{
-				cRoot.setValue(element);
-				current++;
-			}
 			//If it's 1, add the left child, and increment current.
-			else if(cCurrent == 1)
+			if(cCurrent == 1)
 			{
 				cRoot.setLeft(new TreeNode<E>(element));
 				current++;
 			}
-			//Else, add right child, increment current
+			//Else (its 2), add right child, increment current
 			else 
 			{
 				cRoot.setRight(new TreeNode<E>(element));
@@ -80,9 +75,7 @@ class Tree<E extends Comparable<E>>
 		}
 		//Recur Left
 		else if(cCurrent < (int)Math.pow(2,cDepth) + (int)Math.pow(2,cDepth-1) - 1)
-		{
 			addHelper(cRoot.left, element, cCurrent - (int)Math.pow(2,cDepth-1), cDepth - 1);
-		}
 		//Recur right
 		else addHelper(cRoot.right, element, cCurrent - (int)Math.pow(2,cDepth), cDepth - 1);
 	}
@@ -114,7 +107,11 @@ class Tree<E extends Comparable<E>>
 	void printBreadthHelper(TreeNode<E> cRoot, int cDepth, int currentDepth)
 	{
 		if(cRoot == null) return;
-		if(cDepth == currentDepth) System.out.print(cRoot.value+" ");
+		if(cDepth == currentDepth) 
+		{
+			System.out.print(cRoot.value+" ");
+			return;
+		}
 		printBreadthHelper(cRoot.left,cDepth,currentDepth + 1);
 		printBreadthHelper(cRoot.right,cDepth,currentDepth + 1);
 	}
@@ -126,7 +123,7 @@ public class BinaryTree
 	public static void main(String[] args)
 	{
 		Tree<Integer> tree = new Tree<>();
-		for(int i = 1; i <= 21; i++) tree.add(i);
+		for(int i = 1; i <= 27; i++) tree.add(i);
 		System.out.print("In Order Traversal: ");
 		tree.printIn();
 		System.out.print("Breadth Traversal: ");
