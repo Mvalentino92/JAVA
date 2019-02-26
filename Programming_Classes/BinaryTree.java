@@ -91,8 +91,8 @@ class Tree<E extends Comparable<E>>
 	void printInHelper(TreeNode<E> cRoot)
 	{
 		if(cRoot == null) return;
-		System.out.print(cRoot.value+" ");
 		printInHelper(cRoot.left);
+		System.out.print(cRoot.value+" ");
 		printInHelper(cRoot.right);
 	}
 
