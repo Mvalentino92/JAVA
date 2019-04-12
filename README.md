@@ -57,6 +57,8 @@ Linear Algebra functions, notable scripts from my computer science courses, pers
 
 **changeString.java:** Returns a new string, with the specified pattern replaced by the given new pattern. Recursively calls itself until all occurences of the pattern are replaced.
 
+**coinFlips.java:** Represents heads as 0, and tails as 1. Flip a coin N amount of times, and return all possible instances of the results. Used as an exercise educational exercise. Demonstrating two different ways to approach this problem. One method, using binary representation of numbers, and the other using recursion. 
+
 **interpolation.java:** Uses linear interpolation to return a value at the specified point.
 
 **interview.java:** Conducts an interview with the user. Creates a file containing the questions and their responses, and then reads the file back if the file creation was successful. Does not let an interview be conducted with the same person twice, and will throw an exception during attempted readback if the file was created unsuccessfully. 
