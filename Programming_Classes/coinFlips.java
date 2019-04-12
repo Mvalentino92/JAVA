@@ -4,25 +4,13 @@ public class coinFlips
 	/*Prints all possibilities of flipping a coin n amount of times.
 	 * 0 is heads, 1 is tails.
 	 * This is a recursive function.*/
-	public static ArrayList<ArrayList<Integer>> flips(int n)
+	public static int[][] flips(int n)
 	{
 		//Base case. Flip one coin. Results are heads or tails.
 		if(n == 1)
 		{
-			//Return Array (with Array's as its elements, all the instances.)
-			ArrayList<ArrayList<Integer>> retval = new ArrayList<>();
-
-			//Instance of getting heads
-			ArrayList<Integer> zero = new ArrayList<>();
-			zero.add(0);
-
-			//Instance of getting tails.
-			ArrayList<Integer> one = new ArrayList<>();
-			one.add(1);
-
-			//Add these two instances to the return Array, and return.
-			retval.add(zero);
-			retval.add(one);
+			int[][] retval = new int[2][1];
+			retval[1][0] = 1;
 			return retval;
 		}
 
@@ -31,32 +19,29 @@ public class coinFlips
 		 * 2) If you were to flip a coin one more time (the nth time) for each of those instances,
 		 * -- there are two posssible outcomes. Heads or tails.
 		 * -- So, take each of those instances (from n-1), and create 2 instances from it.
-		 * -- One, where you flipped heads at the end (nth flip), which is appending a 0.
-		 * -- Another, where you flipped tails at the end (nth flip), which is appending a 1.*/
+		 * -- One, where you flipped heads at the end (nth flip), which is prepending a 0.
+		 * -- Another, where you flipped tails at the end (nth flip), which is prepending a 1.*/
 		else
 		{
-			//Grab all the instances of flipping (n-1) coins, twice.
-			ArrayList<ArrayList<Integer>> zeros = flips(n-1); //Append 0's to all of these.
-			ArrayList<ArrayList<Integer>> ones = flips(n-1); //Append 1's to all of these.
-			ArrayList<ArrayList<Integer>> retval = new ArrayList<>(); //Final return Array
+			//Grab all the instances of flipping (n-1) coins.
+			int[][] next = flips(n-1);
+			int half = next.length;
 
-			//Append 0 to each instance of (n-1) flips, and add it to the return Array.
-			for(ArrayList<Integer> list : zeros) 
+			//Create return array
+			int[][] retval = new int[half*2][n];
+
+			//Prepend 0 and 1 onto all the instances from next (n-1)
+			for(int i = 0; i < half; i++)
 			{
-				list.add(0);
-				retval.add(list);
+				retval[i][0] = 0; //First spot for first half gets 0
+				retval[i+half][0] = 1; //First spot for second half gets 1
+				for(int j = 1; j < retval[0].length; j++)
+				{
+					//Clone the rest of the spots the entire thing.
+					retval[i][j] = next[i][j-1];
+					retval[i+half][j] = next[i][j-1];
+				}
 			}
-
-			//Append 1 to each instance of (n-1) flips, and add it to the return Array.
-			for(ArrayList<Integer> list : ones )
-			{
-				list.add(1);
-				retval.add(list);
-			}
-
-			//This array will have twice as many elements (instances) of coin flips
-			//as the ones from calling flips(n-1). Why? Because for every element in 
-			//result from flips(n-1), we made 2 elements (flipping heads, or flipping tails).
 			return retval;
 		}
 	}
@@ -100,22 +85,22 @@ public class coinFlips
 	{
 		/*Lets see which method is faster for calculation! (Not printing)
 		 * Change n here for how many coins you want to flip!*/
-		int n = 15;
+		int n = 10;
 
 		//*******************Using flips (recursive)***********************
 		//Grab the time is takes to compute
 		double start = System.nanoTime();
-		ArrayList<ArrayList<Integer>> test = flips(n);
+		int[][] test = flips(n);
 		double time = (System.nanoTime() - start)/1e6;
 
 		//Gather results
-		for(ArrayList<Integer> list : test)
+		for(int i = 0; i < test.length; i++)
 		{
-			for(Integer i : list) System.out.print(i+" ");
+			for(int j = 0; j < test[i].length; j++) System.out.print(test[i][j]+" ");
 			System.out.println();
 		}
-		String results = "Using flips, there are "+test.size()+" possibilities,"+
-				   " and took "+time+" milliseconds to compute.";
+		String results = "Using flips, there are "+test.length+" possibilities,"+
+				  " and took "+time+" milliseconds to compute.";
 		System.out.println("\n********************************************\n");
 
 		//*******************Using flips2 (binary)*************************
