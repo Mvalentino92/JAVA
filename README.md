@@ -43,6 +43,8 @@ Linear Algebra functions, notable scripts from my computer science courses, pers
 
 **Program1_Checker.java:** A program my professor had me write to help them grade a class project. It reads in the student output file and checks it against the professor's "master output file" for correctness with some tolerance for formatting.
 
+**RadiixSort.java:** Performs Radiix sort on ints, with the bounds of negative to positive numbers.
+
 **RecursiveInterpolation.java:** Uses recursion to linearly interpolate halfway between all the supplied data points. Continues to do so until the new array length reaches the size specified by the user. The larger the desired array compared to the original, the less accurate the final returned array will be, as each subsequent method call is interpolating previously interpolated points.
 
 **RecursiveSum.java:** A file created to help teach recursion. Given an array of ints, return all possible sums by combining these ints without repition. Simple recursive function to highlight how recursion can be used to explore all possibilities.
