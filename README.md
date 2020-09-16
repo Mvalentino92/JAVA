@@ -1,5 +1,5 @@
 # JAVA
-Linear Algebra functions, notable scripts from my computer science courses, personal files, and some games!!
+
 
 ## Linear_Algebra:
 **EigenValues.java:** Finds all the eigenvalues of a matrix within certain constraints. The *constraints* are as follows:
